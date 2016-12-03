@@ -1,0 +1,13 @@
+# build files
+build
+
+# precompile header file
+*.gch
+
+# objects
+*.exe
+*.o
+
+#tags
+tags
+
