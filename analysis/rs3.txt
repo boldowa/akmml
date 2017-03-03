@@ -1,0 +1,19 @@
+Romancing SaGa 3 ROM Analysis
+----------------------------------------------------------------------
+
+1) SPC Driver location on ARAM
+--------------------
+  ARAM: 0x0200
+
+2) SPC Driver location on ROM
+--------------------
+  SNES HiROM $c6:2aac
+
+3) SPC Data transfer code start location
+--------------------
+  SNES HiROM $**:****
+
+4) SPC Data transfer code call from root
+--------------------
+  SNES HiROM $**:****
+

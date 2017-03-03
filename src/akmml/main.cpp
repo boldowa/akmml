@@ -2,23 +2,25 @@
  * Square MML Compiler
  *
  */
-#include "gstdafx.h"
-#include "errcode.h"
-#include "option.h"
-#include "exception.h"
-#include "akmml.h"
+#include "gstdafx.hpp"
+#include "errcode.hpp"
+#include "file.hpp"
+#include "exefile.hpp"
+#include "option.hpp"
+#include "exception.hpp"
+#include "akmml.hpp"
 
 bool vdebug = false;
 int main(int argc, char **argv)
 {
 	ErrorCode::ErrorCodeType errorcode = ErrorCode::OK;
 	AkMml* akmml = nullptr;
-	AkMmlOption opt;
+	AkMmlOption opt(argv[0]);
 
 	// オプションを読み出します
 	if(false == opt.parseArgsOption(argc, argv))
 	{
-		return ErrorCode::ARGSERROR;
+		return ErrorCode::ArgsError;
 	}
 
 	// akmmlのメインコードを実行します

@@ -6,6 +6,8 @@
 #ifndef _GSTDAFX_H
 #define _GSTDAFX_H
 
+#define AKMML_VERSION "0.01"
+
 /**
  * Defines...
  *
@@ -33,16 +35,26 @@
   #define MAX_PATH 260
 #endif
 
+#define STR(var) #var
+
 
 /**
  * Include files...
  *
  */
 #include <cstdint>
+#include <ios>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <queue>
+#include <map>
+#include <array>
+#include <vector>
+#include <algorithm>
+#include <functional>
+#include <dirent.h>
 
 /**
  * macros

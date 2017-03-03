@@ -1,0 +1,24 @@
+Romancing SaGa ROM Analysis
+----------------------------------------------------------------------
+
+1) SPC Driver location on ARAM
+--------------------
+  ARAM: 0x0800
+
+2) SPC Driver location on ROM
+--------------------
+  SNES LoROM $04:8606
+
+3) SPC Data transfer code start location
+--------------------
+  SNES LoROM $04:8000 (transfer driver?)
+  SNES LoROM $04:8004 (transfer data?)
+
+4) SPC Data transfer code call from root
+--------------------
+
+etc)
+--------------------
+RESET: $00:811B (ROM Entry Point)
+NMI  : $00:8488
+

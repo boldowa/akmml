@@ -11,6 +11,15 @@
 #----------------------------------------------------------------------
 #CLANG=1
 
+#----------------------------------------
+# Target option
+#----------------------------------------
+TARGETS = akmml
+
+#----------------------------------------
+# Compiler setup
+#----------------------------------------
+
 ifdef CLANG
 	CC_PRG= clang
 	CXX_PRG= clang++
@@ -23,6 +32,8 @@ PLATFORM := unix
 ifdef WIN32
 	BINPREFIX := .exe
 	PLATFORM_ := windows
+	CXXFLAGS += -DWIN32 --exec-charset=cp932
+	CFLAGS += -DWIN32 --exec-charset=cp932
 ifdef x64
 	PLATFORM := $(addsuffix /x64,$(PLATFORM_))
 	PREFIX := x86_64-w64-mingw32-
@@ -41,10 +52,10 @@ CXX		:= $(PREFIX)$(CXX_PRG)
 
 # Include header ... 
 #CXXFLAGS	+= -Isrc/DLLcode -Isrc/n2
-CXXFLAGS	+= -std=c++11
+CXXFLAGS	+= -std=c++11 -ffast-math -ffunction-sections -fdata-sections
 
 # precompile header
-PRECOMPILE_HEADER := gstdafx.h
+PRECOMPILE_HEADER := gstdafx.hpp
 
 
 #----------------------------------------
@@ -52,13 +63,7 @@ PRECOMPILE_HEADER := gstdafx.h
 #----------------------------------------
 LD		= ${CXX}
 LDFLAGS		:= --static
-#LDFLAGS	+= -Wl,--gc-sections -Wl,--no-define-common -Wl,--discard-all
-
-
-#----------------------------------------
-# Target option
-#----------------------------------------
-TARGETS = akmml
+LDFLAGS		+= -Wl,--gc-sections -Wl,--discard-all #-Wl,--no-define-common
 
 
 #--------------------------------------------------
@@ -70,10 +75,10 @@ TARGETS = akmml
 # compile option & dest dir
 buildtype := release
 ifeq ($(buildtype),release)
-  CXXFLAGS += -O2 -ffast-math
+  CXXFLAGS += -O2
   LDFLAGS  += -s
 else ifeq ($(buildtype),debug)
-  CXXFLAGS += -DDEBUG -O0 -Wall
+  CXXFLAGS += -DDEBUG -O0 -g -Wall
 else
   $(error buildtype is illegal.)
 endif
@@ -82,10 +87,10 @@ OUTDIR := build/$(buildtype)/$(PLATFORM)
 
 # Compile program
 define build-rule
-$1_cppsrc := $$(wildcard src/$1/*.cpp)
-$1_csrc := $$(wildcard src/$1/*.c)
+$1_cppsrc := $$(wildcard *.cpp)
+$1_csrc := $$(wildcard *.c)
 ifdef PRECOMPILE_HEADER
-$1_pch := $$(wildcard src/$1/$$(PRECOMPILE_HEADER))
+$1_pch := $$(wildcard $$(PRECOMPILE_HEADER))
 $1_gch := $$(OUTDIR)/obj/$$($1_pch).gch
 endif
 -include $$($1_cppsrc:%.cpp=$$(OUTDIR)/obj/%.d)
@@ -93,7 +98,7 @@ endif
 $$(OUTDIR)/bin/$1: $$($1_gch) $$($1_cppsrc:%.cpp=$$(OUTDIR)/obj/%.o) $$($1_csrc:%.c=$$(OUTDIR)/obj/%.o)
 	@if [ ! -e `dirname $$@` ]; then mkdir -p `dirname $$@`; fi;
 	$$(CXX) $$(LDFLAGS) -o $$@$(BINPREFIX) $$(filter %.o,$$^)
-src/$1/tags: $$($1_pch) $$($1_cppsrc) $$($1_csrc)
+tags: $$($1_pch) $$($1_cppsrc) $$($1_csrc)
 	@if which ctags >/dev/null ; then \
 	echo -n "Making tags file ... " ;\
 	cd `dirname $$@` ;\
@@ -106,7 +111,7 @@ endef
 #----------------------------------------
 # build
 #----------------------------------------
-all: $(foreach i,$(TARGETS),$(OUTDIR)/bin/$i) $(foreach i,$(TARGETS),src/$i/tags)
+all: $(foreach i,$(TARGETS),$(OUTDIR)/bin/$i) tags
 
 $(foreach i,$(TARGETS),$(eval $(call build-rule,$i)))
 
@@ -121,9 +126,12 @@ $(OUTDIR)/obj/%.o:%.c Makefile
 	$(CC) $(CFLAGS) -o $@ -c -MMD -MP -MF $(@:%.o=%.d) $<
 
 # precompile header
-$(OUTDIR)/obj/%.h.gch:%.h Makefile
+$(OUTDIR)/obj/%.hpp.gch:%.hpp Makefile
 	@if [ ! -e `dirname $@` ]; then mkdir -p `dirname $@`; fi
 	$(CXX) $(CXXFLAGS) -o $@ $<
+$(OUTDIR)/obj/%.h.gch:%.h Makefile
+	@if [ ! -e `dirname $@` ]; then mkdir -p `dirname $@`; fi
+	$(CC) $(CXXFLAGS) -o $@ $<
 
 
 #----------------------------------------

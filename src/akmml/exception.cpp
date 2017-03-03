@@ -1,6 +1,6 @@
-#include "gstdafx.h"
-#include "errcode.h"
-#include "exception.h"
+#include "gstdafx.hpp"
+#include "errcode.hpp"
+#include "exception.hpp"
 
 ErrorCode::ErrorCodeType AkMmlException::getErrorCode()
 {
