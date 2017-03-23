@@ -1,0 +1,19 @@
+Super Mario RPG ROM Analysis
+----------------------------------------------------------------------
+
+1) SPC Driver location on ARAM
+--------------------
+  ARAM: 0x0200 (初期化パターン2:SUZUKI)
+
+2) SPC Driver location on ROM
+--------------------
+  SNES HiROM $c4:0d1f
+
+3) SPC Data transfer code start location
+--------------------
+  SNES **ROM $**:****
+
+4) SPC Data transfer code call from root
+--------------------
+  SNES **ROM $**:****
+

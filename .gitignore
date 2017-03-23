@@ -1,0 +1,20 @@
+# build files
+build
+
+# precompile header file
+*.gch
+
+# objects
+*.exe
+*.o
+*.a
+
+# depends
+*.d
+*.dep
+
+#tags
+tags
+
+#base file
+base.*
