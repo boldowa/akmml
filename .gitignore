@@ -8,13 +8,20 @@ build
 *.exe
 *.o
 *.a
+*_tests
 
 # depends
 *.d
 *.dep
 
-#tags
+# tags
 tags
 
-#base file
+# base file
 base.*
+
+# coverage
+*.gcov
+*.gcda
+*.gcno
+

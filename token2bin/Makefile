@@ -1,3 +1,6 @@
+# Enable gcov
+CPPUTEST_USE_GCOV = Y
+
 #Set this to @ to keep the makefile quiet
 SILENCE = @
 
