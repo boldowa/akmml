@@ -1,0 +1,5 @@
+-I$CPPUTEST_HOME/include
+-I$CPPUTEST_HOME/include/Platforms/Gcc
+-Imocks
+-Iinclude
+-Iinclude/util
