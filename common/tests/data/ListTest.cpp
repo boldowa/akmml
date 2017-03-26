@@ -60,6 +60,9 @@ TEST(List, PushFront)
 	CHECK_FALSE(NULL == v);
 	LONGS_EQUAL(Val1, *v);
 
+	/* value(2: inx over) check */
+	POINTERS_EQUAL(NULL, List_Index(list, 2));
+
 	/* Pop */
 	v = (int*)List_PopFront(list);
 	LONGS_EQUAL(len+1, List_GetLength(list));
@@ -116,6 +119,9 @@ TEST(List, PushBack)
 	v = (int*)List_Index(list, 1);
 	CHECK_FALSE(NULL == v);
 	LONGS_EQUAL(Val2, *v);
+
+	/* value(2: inx over) check */
+	POINTERS_EQUAL(NULL, List_Index(list, 2));
 
 	/* Pop */
 	v = (int*)List_PopBack(list);
@@ -187,9 +193,65 @@ TEST(List, Queue)
 
 TEST(List, Index)
 {
+	int* v;
+
 	LONGS_EQUAL(0, List_GetLength(list));
 	POINTERS_EQUAL(NULL, List_Index(list, 0));
 	POINTERS_EQUAL(NULL, List_Index(list, 1));
 	POINTERS_EQUAL(NULL, List_Index(list, -1));
+
+	v = (int*)calloc(1, sizeof(int));
+	*v = 1;
+	CHECK(List_PushBack(list, v));
+
+	v = (int*)calloc(1, sizeof(int));
+	*v = 2;
+	CHECK(List_PushBack(list, v));
+
+	v = (int*)calloc(1, sizeof(int));
+	*v = 3;
+	CHECK(List_PushBack(list, v));
+
+	v = (int*)calloc(1, sizeof(int));
+	*v = 4;
+	CHECK(List_PushBack(list, v));
+
+	v = (int*)calloc(1, sizeof(int));
+	*v = 5;
+	CHECK(List_PushBack(list, v));
+
+	/* value(0) check */
+	v = (int*)List_Index(list, 0);
+	CHECK_FALSE(NULL == v);
+	LONGS_EQUAL(1, *v);
+
+	/* value(1) check */
+	v = (int*)List_Index(list, 1);
+	CHECK_FALSE(NULL == v);
+	LONGS_EQUAL(2, *v);
+
+	/* value(2) check */
+	v = (int*)List_Index(list, 2);
+	CHECK_FALSE(NULL == v);
+	LONGS_EQUAL(3, *v);
+
+	/* value(3) check */
+	v = (int*)List_Index(list, 3);
+	CHECK_FALSE(NULL == v);
+	LONGS_EQUAL(4, *v);
+
+	/* value(4) check */
+	v = (int*)List_Index(list, 4);
+	CHECK_FALSE(NULL == v);
+	LONGS_EQUAL(5, *v);
+
+	/* value(5: inx over) check */
+	POINTERS_EQUAL(NULL, List_Index(list, 5));
+
+	/* clean */
+	while(List_GetLength(list) != 0)
+	{
+		free(List_PopBack(list));
+	}
 }
 

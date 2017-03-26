@@ -181,42 +181,29 @@ void* const List_Index(List self, const size_t inx)
 	{
 		return NULL;
 	}
+	if(self->length <= inx)
+	{
+		return NULL;
+	}
 
 	/* Seek from top */
-	if(self->length/2 > (inx+1))
+	if(self->length/2 > inx)
 	{
 		node = self->top;
 		for(i=0; i != inx; i++)
 		{
-			if(NULL == node->child)
-			{
-				break;
-			}
 			node = node->child;
 		}
-		if(inx == i)
-		{
-			return node->data;
-		}
-
-		return NULL;
+		return node->data;
 	}
 
 	/* Seek from tail */
 	node = self->tail;
 	for(i=self->length-1; i != inx; i--)
 	{
-		if(NULL == node->parrent)
-		{
-			break;
-		}
 		node = node->parrent;
 	}
-	if(inx == i)
-	{
-		return node->data;
-	}
+	return node->data;
 
-	return NULL;
 }
 
