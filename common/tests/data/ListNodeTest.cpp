@@ -32,3 +32,18 @@ TEST(ListNode, Create)
 	/*-----------------------------------*/
 }
 
+TEST(ListNode, Data)
+{
+	int* d = (int*)ListNode_Data(listNode);
+	LONGS_EQUAL(10, *d);
+}
+
+TEST(ListNode, Iterator)
+{
+	POINTERS_EQUAL(NULL, ListNode_Prev(listNode));
+	POINTERS_EQUAL(NULL, ListNode_Next(listNode));
+
+	POINTERS_EQUAL(NULL, ListNode_Prev(NULL));
+	POINTERS_EQUAL(NULL, ListNode_Next(NULL));
+}
+

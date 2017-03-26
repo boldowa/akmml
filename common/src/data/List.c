@@ -207,3 +207,21 @@ void* const List_Index(List self, const size_t inx)
 
 }
 
+/**
+ * Get top of List
+ */
+ListNode List_Begin(List self)
+{
+	if(NULL == self) return NULL;
+	return self->top;
+}
+
+/**
+ * Get tail of List
+ */
+ListNode List_End(List self)
+{
+	if(NULL == self) return NULL;
+	return self->tail;
+}
+

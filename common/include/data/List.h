@@ -61,3 +61,13 @@ void* const List_PopBack(List);
  */
 void* const List_Index(List, const size_t);
 
+/**
+ * Get top of List
+ */
+ListNode List_Begin(List);
+
+/**
+ * Get tail of List
+ */
+ListNode List_End(List);
+

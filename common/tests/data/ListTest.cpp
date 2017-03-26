@@ -154,6 +154,7 @@ TEST(List, Queue)
 	static const int Val2 = 200;
 	int* v;
 	size_t len;
+	ListNode node;
 
 	/* get default status */
 	len = List_GetLength(list);
@@ -169,6 +170,14 @@ TEST(List, Queue)
 	*v = Val2;
 	CHECK(List_Enqueue(list, v));
 	LONGS_EQUAL(len+2, List_GetLength(list));
+
+	/* Iterator begin test */
+	node = List_Begin(list);
+	POINTERS_EQUAL(List_Index(list, 0), ListNode_Data(node));
+
+	/* Iterator end test */
+	node = List_End(list);
+	POINTERS_EQUAL(List_Index(list, 1), ListNode_Data(node));
 
 	/* Dequeue */
 	v = (int*)List_Dequeue(list);

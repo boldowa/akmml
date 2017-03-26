@@ -20,3 +20,20 @@ void ListNode_Destroy(ListNode self)
 	free(self);
 }
 
+void* ListNode_Data(ListNode self)
+{
+	return self->data;
+}
+
+ListNode ListNode_Prev(ListNode self)
+{
+	if(NULL == self) return NULL;
+	return self->parrent;
+}
+
+ListNode ListNode_Next(ListNode self)
+{
+	if(NULL == self) return NULL;
+	return self->child;
+}
+
