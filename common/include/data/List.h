@@ -14,6 +14,14 @@
 typedef struct ListStruct * List;
 
 /**
+ * Alias
+ */
+#define List_Enqueue(a,b) List_PushBack(a,b)
+#define List_Dequeue(a) List_PopFront(a)
+#define List_Push(a,b) List_PushBack(a,b)
+#define List_Pop(a) List_PopBack(a)
+
+/**
  * Create list instance
  */
 List List_Create(void);

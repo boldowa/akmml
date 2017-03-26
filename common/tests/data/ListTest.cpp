@@ -161,24 +161,24 @@ TEST(List, Queue)
 	/* Enqueue */
 	v = (int*)calloc(1, sizeof(int));
 	*v = Val1;
-	CHECK(List_PushBack(list, v));
+	CHECK(List_Enqueue(list, v));
 	LONGS_EQUAL(len+1, List_GetLength(list));
 
 	/* Enqueue */
 	v = (int*)calloc(1, sizeof(int));
 	*v = Val2;
-	CHECK(List_PushBack(list, v));
+	CHECK(List_Enqueue(list, v));
 	LONGS_EQUAL(len+2, List_GetLength(list));
 
 	/* Dequeue */
-	v = (int*)List_PopFront(list);
+	v = (int*)List_Dequeue(list);
 	LONGS_EQUAL(len+1, List_GetLength(list));
 	CHECK_FALSE(NULL == v);
 	LONGS_EQUAL(Val1, *v);
 	free(v);
 
 	/* Pop */
-	v = (int*)List_PopFront(list);
+	v = (int*)List_Dequeue(list);
 	LONGS_EQUAL(len, List_GetLength(list));
 	CHECK_FALSE(NULL == v);
 	LONGS_EQUAL(Val2, *v);
